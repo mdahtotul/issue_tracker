@@ -23,8 +23,8 @@ export default function LoadingIssuesPage() {
         </Table.Header>
 
         <Table.Body>
-          {issues.map((issue, idx) => (
-            <Table.Row key={idx}>
+          {issues.map((issue) => (
+            <Table.Row key={issue}>
               <Table.Cell>
                 <Skeleton />
               </Table.Cell>
