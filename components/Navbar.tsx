@@ -9,7 +9,7 @@ export default function Navbar() {
 
   const links = [
     { label: "Dashboard", href: "/" },
-    { label: "Issues", href: "/issues" },
+    { label: "Issues", href: "/issues/list" },
   ];
   return (
     <nav className="flex items-center space-x-6 border-b mb-5 px-5 h-14">

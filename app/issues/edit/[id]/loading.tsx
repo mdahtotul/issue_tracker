@@ -1,5 +1,5 @@
 import IssueFormSkeleton from "../../IssueFormSkeleton";
 
-export default function LoadingEditIssue() {
+export default async function LoadingEditIssue() {
   return <IssueFormSkeleton />;
 }

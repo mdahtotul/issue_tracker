@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function EditIssueButton({ issueId }: { issueId: number }) {
   return (
-    <Link href={`/issues/${issueId}/edit`}>
+    <Link href={`/issues/edit/${issueId}`}>
       <Button className="w-full cursor-pointer">
         <Pencil2Icon /> Edit Issue
       </Button>
