@@ -39,6 +39,7 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
         await axios.post("/api/issues", data);
       }
       router.push("/issues");
+      router.refresh();
     } catch (err) {
       setError("An unexpected error occurred");
     }
