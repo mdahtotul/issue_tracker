@@ -1,11 +1,16 @@
 import { issueSchema } from "@/app/validationSchemas";
+import { authOptions } from "@/authOptions";
 import prisma from "@/prisma/client";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const session = await getServerSession(authOptions);
+  if (!session)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const body = await req.json();
   const validation = issueSchema.safeParse(body);
 
@@ -43,6 +48,9 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: number } }
 ) {
+  const session = await getServerSession(authOptions);
+  if (!session)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   if (!params.id)
     return NextResponse.json({ error: "Id is required" }, { status: 400 });
 
