@@ -20,16 +20,16 @@ export async function PATCH(
     return NextResponse.json(validation.error.format(), { status: 400 });
 
   const { assignedTo, title, description } = body;
-  if (assignedTo) {
-    const user = await prisma.user.findUnique({ where: { id: assignedTo } });
-
-    if (!user)
-      return NextResponse.json(
-        { error: "Assigned user doesn't exist" },
-        { status: 404 }
-      );
-  }
   try {
+    if (assignedTo) {
+      const user = await prisma.user.findUnique({ where: { id: assignedTo } });
+
+      if (!user)
+        return NextResponse.json(
+          { error: "Assigned user doesn't exist" },
+          { status: 404 }
+        );
+    }
     const issue = await prisma.issue.findUnique({
       where: {
         id: +params.id,
@@ -42,14 +42,15 @@ export async function PATCH(
     const updatedIssue: Issue = await prisma.issue.update({
       where: { id: issue?.id },
       data: {
-        title: title,
-        description: description,
-        assignedTo: assignedTo || null,
+        title,
+        description,
+        assignedTo,
       },
     });
 
     return NextResponse.json(updatedIssue, { status: 200 });
   } catch (err: any) {
+    console.log(err);
     return NextResponse.json(
       { error: err?.meta?.cause || "Internal Server Error" },
       { status: 500 }
